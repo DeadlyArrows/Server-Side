@@ -52,4 +52,9 @@ public class CustomerServiceImpl implements ICustomerService {
     public Optional<Customer> findByDni(String dni) throws Exception {
         return customerRepository.findByDni(dni);
     }
+
+    @Override
+    public Optional<Customer> findByEmailAndPassword(String email, String password) throws Exception {
+        return customerRepository.findByEmailAndPassword(email, password);
+    }
 }
