@@ -113,6 +113,23 @@ public class CustomerController {
         }
     }
 
+    @GetMapping(value = "/searchByEmailAndPassword/{email}/{password}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Search Customer by Email and Password", notes = "Method to find Customer by Email and Password")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Customer found"),
+            @ApiResponse(code = 404, message = "Customer not found")
+    })
+    public ResponseEntity<Customer> findByDni(@PathVariable("email") String email, @PathVariable("password") String password) {
+        try {
+            Optional<Customer> customer = customerService.findByEmailAndPassword(email, password);
+            if (!customer.isPresent())
+                return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Registration of Customers", notes = "Method to register Customers in the BD")
     @ApiResponses({
