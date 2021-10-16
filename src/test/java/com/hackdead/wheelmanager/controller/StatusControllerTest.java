@@ -1,9 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.Brand;
 import com.hackdead.wheelmanager.entities.Status;
-import com.hackdead.wheelmanager.service.impl.BrandServiceImpl;
-import com.hackdead.wheelmanager.service.impl.StatusServiceImpl;
+import com.hackdead.wheelmanager.service.StatusServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
