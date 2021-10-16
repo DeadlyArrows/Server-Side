@@ -1,4 +1,4 @@
-package com.hackdead.wheelmanager.service;
+package com.hackdead.wheelmanager.service.impl;
 
 import com.hackdead.wheelmanager.entities.Brand;
 import com.hackdead.wheelmanager.repository.IBrandRepository;
