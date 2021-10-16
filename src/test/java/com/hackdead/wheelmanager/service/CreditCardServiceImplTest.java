@@ -1,4 +1,4 @@
-package com.hackdead.wheelmanager.service.impl;
+package com.hackdead.wheelmanager.service;
 
 import com.hackdead.wheelmanager.entities.CreditCard;
 import com.hackdead.wheelmanager.entities.Customer;
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.Date;

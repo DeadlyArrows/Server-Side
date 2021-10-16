@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.entities.Customer;
-import com.hackdead.wheelmanager.service.impl.CustomerServiceImpl;
+import com.hackdead.wheelmanager.service.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

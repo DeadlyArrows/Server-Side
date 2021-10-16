@@ -1,4 +1,4 @@
-package com.hackdead.wheelmanager.service.impl;
+package com.hackdead.wheelmanager.service;
 
 import com.hackdead.wheelmanager.entities.VehicleType;
 import com.hackdead.wheelmanager.repository.IVehicleTypeRepository;

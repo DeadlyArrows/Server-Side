@@ -1,4 +1,4 @@
-package com.hackdead.wheelmanager.service.impl;
+package com.hackdead.wheelmanager.service;
 
 import com.hackdead.wheelmanager.entities.Customer;
 import com.hackdead.wheelmanager.repository.ICustomerRepository;
