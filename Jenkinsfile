@@ -33,14 +33,14 @@ pipeline {
             }
         }
 
-        stage('Deploy Stage') {
+		stage('Deploy Tomcat') {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} direction ${env.WORKSPACE}"
                 withMaven(maven : 'MAVEN_3_6_3') {
-                    bat '"C:\\Program Files\\Git\\mingw64\\bin\\curl.exe" -T ".\\target\\wheelManager-1.0.war" "http://tomcat:tomcat@localhost:9090/manager/text/deploy?path=/wheelManager-1.0&update=true"'
+					bat '"C:\\Program Files\\Git\\mingw64\\bin\\curl.exe" -T ".\\target\\wheelManager-1.0.war" "http://deployer:deployer@localhost:9090/manager/text/deploy?path=/wheelManager-1.0&update=true"'
                 }
             }
-         }
+        }
 
     }
 }
