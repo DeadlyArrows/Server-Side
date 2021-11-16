@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.CreditCard;
-import com.hackdead.wheelmanager.service.ICreditCardService;
+import com.hackdead.wheelmanager.core.entities.CreditCard;
+import com.hackdead.wheelmanager.core.service.ICreditCardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

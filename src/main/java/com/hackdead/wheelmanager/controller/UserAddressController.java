@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.UserAddress;
-import com.hackdead.wheelmanager.service.IUserAddressService;
+import com.hackdead.wheelmanager.core.entities.UserAddress;
+import com.hackdead.wheelmanager.core.service.IUserAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

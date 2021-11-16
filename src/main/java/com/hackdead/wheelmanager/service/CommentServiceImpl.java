@@ -1,8 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Comment;
-import com.hackdead.wheelmanager.repository.ICommentRepository;
-import com.hackdead.wheelmanager.service.ICommentService;
+import com.hackdead.wheelmanager.core.entities.Comment;
+import com.hackdead.wheelmanager.core.repository.ICommentRepository;
+import com.hackdead.wheelmanager.core.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.Comment;
-import com.hackdead.wheelmanager.service.ICommentService;
+import com.hackdead.wheelmanager.core.entities.Comment;
+import com.hackdead.wheelmanager.core.service.ICommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

@@ -1,6 +1,6 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.Brand;
+import com.hackdead.wheelmanager.core.entities.Brand;
 import com.hackdead.wheelmanager.service.BrandServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

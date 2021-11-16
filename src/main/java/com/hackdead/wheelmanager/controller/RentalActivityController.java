@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.RentalActivity;
-import com.hackdead.wheelmanager.service.IRentalActivityService;
+import com.hackdead.wheelmanager.core.entities.RentalActivity;
+import com.hackdead.wheelmanager.core.service.IRentalActivityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

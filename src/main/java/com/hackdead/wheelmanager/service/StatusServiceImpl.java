@@ -1,8 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Status;
-import com.hackdead.wheelmanager.repository.IStatusRepository;
-import com.hackdead.wheelmanager.service.IStatusService;
+import com.hackdead.wheelmanager.core.entities.Status;
+import com.hackdead.wheelmanager.core.repository.IStatusRepository;
+import com.hackdead.wheelmanager.core.service.IStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

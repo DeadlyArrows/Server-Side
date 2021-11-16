@@ -1,7 +1,9 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.Address;
-import com.hackdead.wheelmanager.service.IAddressService;
+import com.hackdead.wheelmanager.core.entities.Address;
+import com.hackdead.wheelmanager.core.service.IAddressService;
+import com.hackdead.wheelmanager.maps.mapper.AddressMapper;
+import com.hackdead.wheelmanager.maps.request.AddressRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -34,12 +36,12 @@ public class AddressController {
     public ResponseEntity<List<Address>> findAll() {
         try {
             List<Address> address = addressService.getAll();
-            if (address.size() > 0)
-                return new ResponseEntity<List<Address>>(address, HttpStatus.OK);
+            if (!address.isEmpty())
+                return new ResponseEntity<>(address, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Address>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Address>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -52,11 +54,9 @@ public class AddressController {
     public ResponseEntity<Address> findById(@PathVariable("id") Long id) {
         try {
             Optional<Address> address = addressService.getById(id);
-            if (!address.isPresent())
-                return new ResponseEntity<Address>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Address>(address.get(), HttpStatus.OK);
+            return address.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Address>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,12 +69,12 @@ public class AddressController {
     public ResponseEntity<List<Address>> findByLongitudeAndLatitude(@PathVariable("longitude") Double longitude, @PathVariable("latitude") Double latitude) {
         try {
             List<Address> addresses = addressService.findByLongitudeAndLatitude(longitude, latitude);
-            if (addresses.size() > 0)
-                return new ResponseEntity<List<Address>>(addresses, HttpStatus.OK);
+            if (!addresses.isEmpty())
+                return new ResponseEntity<>(addresses, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Address>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Address>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -84,12 +84,12 @@ public class AddressController {
             @ApiResponse(code = 201, message = "Address found"),
             @ApiResponse(code = 404, message = "Address not found")
     })
-    public ResponseEntity<Address> insertAddress(@Valid @RequestBody Address address) {
+    public ResponseEntity<Address> insertAddress(@Valid @RequestBody AddressRequest addressRequest) {
         try {
-            Address addressNew = addressService.save(address);
+            Address addressNew = addressService.save(AddressMapper.toAddress(addressRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(addressNew);
         } catch (Exception e) {
-            return new ResponseEntity<Address>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -105,12 +105,12 @@ public class AddressController {
         try {
             Optional<Address> addressUp = addressService.getById(id);
             if (!addressUp.isPresent())
-                return new ResponseEntity<Address>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             address.setId(id);
             addressService.save(address);
-            return new ResponseEntity<Address>(address, HttpStatus.OK);
+            return new ResponseEntity<>(address, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Address>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -124,11 +124,11 @@ public class AddressController {
         try {
             Optional<Address> addressDelete = addressService.getById(id);
             if (!addressDelete.isPresent())
-                return new ResponseEntity<Address>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             addressService.delete(id);
-            return new ResponseEntity<Address>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Address>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

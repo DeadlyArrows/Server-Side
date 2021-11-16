@@ -1,6 +1,6 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.Status;
+import com.hackdead.wheelmanager.core.entities.Status;
 import com.hackdead.wheelmanager.service.StatusServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

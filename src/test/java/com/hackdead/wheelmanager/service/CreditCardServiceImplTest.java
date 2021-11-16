@@ -1,8 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.CreditCard;
-import com.hackdead.wheelmanager.entities.Customer;
-import com.hackdead.wheelmanager.repository.ICreditCardRepository;
+import com.hackdead.wheelmanager.core.entities.CreditCard;
+import com.hackdead.wheelmanager.core.entities.Customer;
+import com.hackdead.wheelmanager.core.repository.ICreditCardRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

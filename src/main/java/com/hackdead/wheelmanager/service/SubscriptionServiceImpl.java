@@ -1,8 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Subscription;
-import com.hackdead.wheelmanager.repository.ISubscriptionRepository;
-import com.hackdead.wheelmanager.service.ISubscriptionService;
+import com.hackdead.wheelmanager.core.entities.Subscription;
+import com.hackdead.wheelmanager.core.repository.ISubscriptionRepository;
+import com.hackdead.wheelmanager.core.service.ISubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

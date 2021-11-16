@@ -1,7 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Reservation;
-import com.hackdead.wheelmanager.repository.IReservationRepository;
+import com.hackdead.wheelmanager.core.entities.Reservation;
+import com.hackdead.wheelmanager.core.repository.IReservationRepository;
+import com.hackdead.wheelmanager.core.service.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.Reservation;
-import com.hackdead.wheelmanager.service.IReservationService;
+import com.hackdead.wheelmanager.core.entities.Reservation;
+import com.hackdead.wheelmanager.core.service.IReservationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

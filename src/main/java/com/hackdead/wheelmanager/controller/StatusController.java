@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.controller;
 
-import com.hackdead.wheelmanager.entities.Status;
-import com.hackdead.wheelmanager.service.IStatusService;
+import com.hackdead.wheelmanager.core.entities.Status;
+import com.hackdead.wheelmanager.core.service.IStatusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

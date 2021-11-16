@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Brand;
-import com.hackdead.wheelmanager.repository.IBrandRepository;
+import com.hackdead.wheelmanager.core.entities.Brand;
+import com.hackdead.wheelmanager.core.repository.IBrandRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,8 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Vehicle;
-import com.hackdead.wheelmanager.repository.IVehicleRepository;
-import com.hackdead.wheelmanager.service.IVehicleService;
+import com.hackdead.wheelmanager.core.entities.Vehicle;
+import com.hackdead.wheelmanager.core.repository.IVehicleRepository;
+import com.hackdead.wheelmanager.core.service.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

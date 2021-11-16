@@ -1,7 +1,7 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Status;
-import com.hackdead.wheelmanager.repository.IStatusRepository;
+import com.hackdead.wheelmanager.core.entities.Status;
+import com.hackdead.wheelmanager.core.repository.IStatusRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

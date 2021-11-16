@@ -1,8 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.CreditCard;
-import com.hackdead.wheelmanager.repository.ICreditCardRepository;
-import com.hackdead.wheelmanager.service.ICreditCardService;
+import com.hackdead.wheelmanager.core.entities.CreditCard;
+import com.hackdead.wheelmanager.core.repository.ICreditCardRepository;
+import com.hackdead.wheelmanager.core.service.ICreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

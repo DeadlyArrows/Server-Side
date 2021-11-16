@@ -1,9 +1,9 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Offer;
-import com.hackdead.wheelmanager.entities.RentalActivity;
-import com.hackdead.wheelmanager.entities.Reservation;
-import com.hackdead.wheelmanager.repository.IRentalActivityRepository;
+import com.hackdead.wheelmanager.core.entities.Offer;
+import com.hackdead.wheelmanager.core.entities.RentalActivity;
+import com.hackdead.wheelmanager.core.entities.Reservation;
+import com.hackdead.wheelmanager.core.repository.IRentalActivityRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

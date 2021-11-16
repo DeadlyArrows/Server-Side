@@ -1,9 +1,9 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.Comment;
-import com.hackdead.wheelmanager.entities.Customer;
-import com.hackdead.wheelmanager.entities.Vehicle;
-import com.hackdead.wheelmanager.repository.ICommentRepository;
+import com.hackdead.wheelmanager.core.entities.Comment;
+import com.hackdead.wheelmanager.core.entities.Customer;
+import com.hackdead.wheelmanager.core.entities.Vehicle;
+import com.hackdead.wheelmanager.core.repository.ICommentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

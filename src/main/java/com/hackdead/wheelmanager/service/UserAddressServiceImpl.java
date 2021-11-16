@@ -1,8 +1,8 @@
 package com.hackdead.wheelmanager.service;
 
-import com.hackdead.wheelmanager.entities.UserAddress;
-import com.hackdead.wheelmanager.repository.IUserAddressRepository;
-import com.hackdead.wheelmanager.service.IUserAddressService;
+import com.hackdead.wheelmanager.core.entities.UserAddress;
+import com.hackdead.wheelmanager.core.repository.IUserAddressRepository;
+import com.hackdead.wheelmanager.core.service.IUserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
