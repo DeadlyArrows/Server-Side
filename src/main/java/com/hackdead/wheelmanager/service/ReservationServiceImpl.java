@@ -2,7 +2,6 @@ package com.hackdead.wheelmanager.service;
 
 import com.hackdead.wheelmanager.entities.Reservation;
 import com.hackdead.wheelmanager.repository.IReservationRepository;
-import com.hackdead.wheelmanager.service.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,5 +42,10 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public List<Reservation> findBetweenDate(Date startDate, Date endDate) throws Exception {
         return reservationRepository.find(startDate, endDate);
+    }
+
+    @Override
+    public List<Reservation> findReservationByVehicleId(Long vehicleId) throws Exception {
+        return reservationRepository.findByVehicleId(vehicleId);
     }
 }
