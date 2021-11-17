@@ -40,7 +40,7 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     }
 
     @Override
-    public List<Subscription> findSubscriptionByStartDate(Date startDate) throws Exception {
+    public List<Subscription> findSubscriptionByStartDate(Date startDate) {
         return subscriptionRepository.findAllWithStartDate(startDate);
     }
 }

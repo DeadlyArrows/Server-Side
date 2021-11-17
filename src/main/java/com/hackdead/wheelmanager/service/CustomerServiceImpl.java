@@ -39,22 +39,22 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public List<Customer> findByUsername(String username) throws Exception {
+    public List<Customer> findByUsername(String username) {
         return customerRepository.findByUsername(username);
     }
 
     @Override
-    public List<Customer> findByName(String name) throws Exception {
+    public List<Customer> findByName(String name) {
         return customerRepository.findByName(name);
     }
 
     @Override
-    public Optional<Customer> findByDni(String dni) throws Exception {
+    public Optional<Customer> findByDni(String dni) {
         return customerRepository.findByDni(dni);
     }
 
     @Override
-    public Optional<Customer> findByEmailAndPassword(String email, String password) throws Exception {
+    public Optional<Customer> findByEmailAndPassword(String email, String password) {
         return customerRepository.findByEmailAndPassword(email, password);
     }
 }

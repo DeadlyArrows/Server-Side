@@ -40,7 +40,7 @@ public class VehicleTypeServiceImpl implements IVehicleTypeService {
     }
 
     @Override
-    public List<VehicleType> findByTypeName(String typeName) throws Exception {
+    public List<VehicleType> findByTypeName(String typeName) {
         return vehicleTypeRepository.findByTypeName(typeName);
     }
 }

@@ -40,7 +40,7 @@ public class StatusServiceImpl implements IStatusService {
     }
 
     @Override
-    public List<Status> findByStatusName(String statusName) throws Exception {
+    public List<Status> findByStatusName(String statusName) {
         return statusRepository.findByStatusName(statusName);
     }
 }

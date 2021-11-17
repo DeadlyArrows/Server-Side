@@ -40,7 +40,7 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public List<Comment> findCommentByPublicationDate(Date publicationDate) throws Exception {
+    public List<Comment> findCommentByPublicationDate(Date publicationDate) {
         return commentRepository.findAllWithPublicationDate(publicationDate);
     }
 }

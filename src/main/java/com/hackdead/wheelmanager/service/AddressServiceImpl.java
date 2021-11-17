@@ -39,7 +39,7 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
-    public List<Address> findByLongitudeAndLatitude(Double longitude, Double latitude) throws Exception {
+    public List<Address> findByLongitudeAndLatitude(Double longitude, Double latitude) {
         return addressRepository.findByLongitudeAndLatitude(longitude, latitude);
     }
 }

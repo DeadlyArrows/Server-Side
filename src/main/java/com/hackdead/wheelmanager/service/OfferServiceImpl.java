@@ -40,7 +40,7 @@ public class OfferServiceImpl implements IOfferService {
     }
 
     @Override
-    public List<Offer> findByOfferName(String offerName) throws Exception {
+    public List<Offer> findByOfferName(String offerName) {
         return offerRepository.findByOfferName(offerName);
     }
 }

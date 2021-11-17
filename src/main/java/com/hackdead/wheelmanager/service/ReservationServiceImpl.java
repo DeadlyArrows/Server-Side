@@ -41,12 +41,12 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     @Override
-    public List<Reservation> findBetweenDate(Date startDate, Date endDate) throws Exception {
+    public List<Reservation> findBetweenDate(Date startDate, Date endDate) {
         return reservationRepository.find(startDate, endDate);
     }
 
     @Override
-    public List<Reservation> findReservationByVehicleId(Long vehicleId) throws Exception {
+    public List<Reservation> findReservationByVehicleId(Long vehicleId) {
         return reservationRepository.findByVehicleId(vehicleId);
     }
 }

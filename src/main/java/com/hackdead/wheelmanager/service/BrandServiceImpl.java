@@ -40,7 +40,7 @@ public class BrandServiceImpl implements IBrandService {
     }
 
     @Override
-    public List<Brand> findByBrandName(String brandName) throws Exception {
+    public List<Brand> findByBrandName(String brandName) {
         return brandRepository.findByBrandName(brandName);
     }
 }

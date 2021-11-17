@@ -29,7 +29,7 @@ public class CommentController {
     @Autowired
     private ICommentService commentService;
 
-    public static Date ParseDate(String date) {
+    public static Date parseDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date result = null;
         try {
@@ -80,7 +80,7 @@ public class CommentController {
     })
     public ResponseEntity<List<Comment>> findByCommentByPublicationDate(@RequestParam(name = "publicationDate") String publicationDate) {
         try {
-            Date publicationDateNew = ParseDate(publicationDate);
+            Date publicationDateNew = parseDate(publicationDate);
             List<Comment> comments = commentService.findCommentByPublicationDate(publicationDateNew);
             if (!comments.isEmpty())
                 return new ResponseEntity<>(comments, HttpStatus.OK);

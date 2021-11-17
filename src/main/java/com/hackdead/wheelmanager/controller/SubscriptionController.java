@@ -29,7 +29,7 @@ public class SubscriptionController {
     @Autowired
     private ISubscriptionService subscriptionService;
 
-    public static Date ParseDate(String date) {
+    public static Date parseDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date result = null;
         try {
@@ -80,7 +80,7 @@ public class SubscriptionController {
     })
     public ResponseEntity<List<Subscription>> findBySubscriptionByStartDate(@RequestParam(name = "startDate") String startDate) {
         try {
-            Date startDateNew = ParseDate(startDate);
+            Date startDateNew = parseDate(startDate);
             List<Subscription> subscriptions = subscriptionService.findSubscriptionByStartDate(startDateNew);
             if (!subscriptions.isEmpty())
                 return new ResponseEntity<>(subscriptions, HttpStatus.OK);
