@@ -1,7 +1,6 @@
 package com.hackdead.wheelmanager.core.service;
 
 import com.hackdead.wheelmanager.core.entities.Offer;
-import com.hackdead.wheelmanager.core.service.CrudService;
 
 import java.util.List;
 

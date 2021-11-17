@@ -48,7 +48,7 @@ public class CommentController {
     public ResponseEntity<List<Comment>> findAll() {
         try {
             List<Comment> comments = commentService.getAll();
-            if (comments.isEmpty())
+            if (!comments.isEmpty())
                 return new ResponseEntity<>(comments, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
