@@ -34,12 +34,12 @@ public class BrandController {
     public ResponseEntity<List<Brand>> findAll() {
         try {
             List<Brand> brands = brandService.getAll();
-            if (brands.size() > 0)
-                return new ResponseEntity<List<Brand>>(brands, HttpStatus.OK);
+            if (!brands.isEmpty())
+                return new ResponseEntity<>(brands, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Brand>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Brand>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,10 +53,10 @@ public class BrandController {
         try {
             Optional<Brand> brand = brandService.getById(id);
             if (!brand.isPresent())
-                return new ResponseEntity<Brand>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Brand>(brand.get(), HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(brand.get(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Brand>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,12 +69,12 @@ public class BrandController {
     public ResponseEntity<List<Brand>> findByBrandName(@PathVariable("brandName") String brandName) {
         try {
             List<Brand> brands = brandService.findByBrandName(brandName);
-            if (brands.size() > 0)
-                return new ResponseEntity<List<Brand>>(brands, HttpStatus.OK);
+            if (!brands.isEmpty())
+                return new ResponseEntity<>(brands, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Brand>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Brand>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -89,7 +89,7 @@ public class BrandController {
             Brand brandNew = brandService.save(brand);
             return ResponseEntity.status(HttpStatus.CREATED).body(brandNew);
         } catch (Exception e) {
-            return new ResponseEntity<Brand>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -105,12 +105,12 @@ public class BrandController {
         try {
             Optional<Brand> brandUp = brandService.getById(id);
             if (!brandUp.isPresent())
-                return new ResponseEntity<Brand>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             brand.setId(id);
             brandService.save(brand);
-            return new ResponseEntity<Brand>(brand, HttpStatus.OK);
+            return new ResponseEntity<>(brand, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Brand>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -124,11 +124,11 @@ public class BrandController {
         try {
             Optional<Brand> brandDelete = brandService.getById(id);
             if (!brandDelete.isPresent())
-                return new ResponseEntity<Brand>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             brandService.delete(id);
-            return new ResponseEntity<Brand>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Brand>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
