@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Status;
 import com.hackdead.wheelmanager.core.service.IStatusService;
+import com.hackdead.wheelmanager.maps.mapper.StatusMapper;
+import com.hackdead.wheelmanager.maps.request.StatusRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -35,11 +37,11 @@ public class StatusController {
         try {
             List<Status> statuses = statusService.getAll();
             if (statuses.size() > 0)
-                return new ResponseEntity<List<Status>>(statuses, HttpStatus.OK);
+                return new ResponseEntity<>(statuses, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Status>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Status>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -53,11 +55,9 @@ public class StatusController {
     public ResponseEntity<Status> findById(@PathVariable("id") Long id) {
         try {
             Optional<Status> status = statusService.getById(id);
-            if (!status.isPresent())
-                return new ResponseEntity<Status>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Status>(status.get(), HttpStatus.OK);
+            return status.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Status>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -71,11 +71,11 @@ public class StatusController {
         try {
             List<Status> statuses = statusService.findByStatusName(statusName);
             if (statuses.size() > 0)
-                return new ResponseEntity<List<Status>>(statuses, HttpStatus.OK);
+                return new ResponseEntity<>(statuses, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Status>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Status>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -85,12 +85,12 @@ public class StatusController {
             @ApiResponse(code = 201, message = "Status found"),
             @ApiResponse(code = 404, message = "Status not found")
     })
-    public ResponseEntity<Status> insertStatus(@Valid @RequestBody Status status) {
+    public ResponseEntity<Status> insertStatus(@Valid @RequestBody StatusRequest statusRequest) {
         try {
-            Status statusNew = statusService.save(status);
+            Status statusNew = statusService.save(StatusMapper.toStatus(statusRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(statusNew);
         } catch (Exception e) {
-            return new ResponseEntity<Status>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -102,16 +102,17 @@ public class StatusController {
             @ApiResponse(code = 404, message = "Status not updated")
     })
     public ResponseEntity<Status> updateStatus(
-            @PathVariable("id") Long id, @Valid @RequestBody Status status) {
+            @PathVariable("id") Long id, @Valid @RequestBody StatusRequest statusRequest) {
         try {
             Optional<Status> statusUp = statusService.getById(id);
             if (!statusUp.isPresent())
-                return new ResponseEntity<Status>(HttpStatus.NOT_FOUND);
-            status.setId(id);
-            statusService.save(status);
-            return new ResponseEntity<Status>(status, HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            Status statusUpdate = StatusMapper.toStatus(statusRequest);
+            statusUpdate.setId(id);
+            statusService.save(statusUpdate);
+            return new ResponseEntity<>(statusUpdate, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Status>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -125,11 +126,11 @@ public class StatusController {
         try {
             Optional<Status> statusDelete = statusService.getById(id);
             if (!statusDelete.isPresent())
-                return new ResponseEntity<Status>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             statusService.delete(id);
-            return new ResponseEntity<Status>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Status>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
