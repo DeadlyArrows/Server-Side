@@ -5,6 +5,7 @@ H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\whee
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Offer.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\UserAddress.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\CreditCardController.java
+H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\mapper\CustomerMapper.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\service\IVehicleService.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\service\ICommentService.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\mapper\VehicleTypeMapper.java
@@ -73,4 +74,5 @@ H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\whee
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\CommentController.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\VehicleTypeController.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Status.java
+H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\request\CustomerRequest.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\repository\IVehicleRepository.java

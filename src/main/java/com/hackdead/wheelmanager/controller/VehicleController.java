@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Vehicle;
 import com.hackdead.wheelmanager.core.service.IVehicleService;
+import com.hackdead.wheelmanager.maps.mapper.VehicleMapper;
+import com.hackdead.wheelmanager.maps.request.VehicleRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -34,12 +36,12 @@ public class VehicleController {
     public ResponseEntity<List<Vehicle>> findAll() {
         try {
             List<Vehicle> vehicles = vehicleService.getAll();
-            if (vehicles.size() > 0)
-                return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.OK);
+            if (!vehicles.isEmpty())
+                return new ResponseEntity<>(vehicles, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Vehicle>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Vehicle>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -52,11 +54,9 @@ public class VehicleController {
     public ResponseEntity<Vehicle> findById(@PathVariable("id") Long id) {
         try {
             Optional<Vehicle> vehicles = vehicleService.getById(id);
-            if (!vehicles.isPresent())
-                return new ResponseEntity<Vehicle>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Vehicle>(vehicles.get(), HttpStatus.OK);
+            return vehicles.map(vehicle -> new ResponseEntity<>(vehicle, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Vehicle>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,12 +69,12 @@ public class VehicleController {
     public ResponseEntity<List<Vehicle>> findByVehicleName(@PathVariable("vehicleName") String vehicleName) {
         try {
             List<Vehicle> vehicles = vehicleService.findByVehicleName(vehicleName);
-            if (vehicles.size() > 0)
-                return new ResponseEntity<List<Vehicle>>(vehicles, HttpStatus.OK);
+            if (!vehicles.isEmpty())
+                return new ResponseEntity<>(vehicles, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Vehicle>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Vehicle>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -84,12 +84,12 @@ public class VehicleController {
             @ApiResponse(code = 201, message = "Vehicle found"),
             @ApiResponse(code = 404, message = "Vehicle not found")
     })
-    public ResponseEntity<Vehicle> insertVehicle(@Valid @RequestBody Vehicle vehicle) {
+    public ResponseEntity<Vehicle> insertVehicle(@Valid @RequestBody VehicleRequest vehicleRequest) {
         try {
-            Vehicle vehicleNew = vehicleService.save(vehicle);
+            Vehicle vehicleNew = vehicleService.save(VehicleMapper.toVehicle(vehicleRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(vehicleNew);
         } catch (Exception e) {
-            return new ResponseEntity<Vehicle>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -101,16 +101,17 @@ public class VehicleController {
             @ApiResponse(code = 404, message = "Vehicle not updated")
     })
     public ResponseEntity<Vehicle> updateVehicle(
-            @PathVariable("id") Long id, @Valid @RequestBody Vehicle vehicle) {
+            @PathVariable("id") Long id, @Valid @RequestBody VehicleRequest vehicleRequest) {
         try {
             Optional<Vehicle> vehicleUp = vehicleService.getById(id);
             if (!vehicleUp.isPresent())
-                return new ResponseEntity<Vehicle>(HttpStatus.NOT_FOUND);
-            vehicle.setId(id);
-            vehicleService.save(vehicle);
-            return new ResponseEntity<Vehicle>(vehicle, HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            Vehicle vehicleUpdate = VehicleMapper.toVehicle(vehicleRequest);
+            vehicleUpdate.setId(id);
+            vehicleService.save(vehicleUpdate);
+            return new ResponseEntity<>(vehicleUpdate, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Vehicle>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -124,11 +125,11 @@ public class VehicleController {
         try {
             Optional<Vehicle> deleteVehicle = vehicleService.getById(id);
             if (!deleteVehicle.isPresent())
-                return new ResponseEntity<Vehicle>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             vehicleService.delete(id);
-            return new ResponseEntity<Vehicle>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Vehicle>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

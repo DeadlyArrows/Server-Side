@@ -26,6 +26,7 @@ com\hackdead\wheelmanager\core\repository\IOfferRepository.class
 com\hackdead\wheelmanager\core\repository\IReservationRepository.class
 com\hackdead\wheelmanager\core\service\IAddressService.class
 com\hackdead\wheelmanager\core\service\ICommentService.class
+com\hackdead\wheelmanager\maps\request\CustomerRequest.class
 com\hackdead\wheelmanager\core\service\IReservationService.class
 com\hackdead\wheelmanager\service\SubscriptionServiceImpl.class
 com\hackdead\wheelmanager\controller\CreditCardController.class
@@ -54,6 +55,7 @@ com\hackdead\wheelmanager\util\SwaggerConfiguration.class
 com\hackdead\wheelmanager\service\RentalActivityServiceImpl.class
 com\hackdead\wheelmanager\controller\SubscriptionController.class
 com\hackdead\wheelmanager\service\CommentServiceImpl.class
+com\hackdead\wheelmanager\maps\mapper\CustomerMapper.class
 com\hackdead\wheelmanager\controller\StatusController.class
 com\hackdead\wheelmanager\core\repository\IVehicleTypeRepository.class
 com\hackdead\wheelmanager\core\service\ICreditCardService.class
