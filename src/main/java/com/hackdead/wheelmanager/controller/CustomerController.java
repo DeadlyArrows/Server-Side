@@ -34,12 +34,12 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> findAll() {
         try {
             List<Customer> customers = customerService.getAll();
-            if (customers.size() > 0)
-                return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
+            if (!customers.isEmpty())
+                return new ResponseEntity<>(customers, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Customer>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Customer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -52,11 +52,9 @@ public class CustomerController {
     public ResponseEntity<Customer> findById(@PathVariable("id") Long id) {
         try {
             Optional<Customer> customer = customerService.getById(id);
-            if (!customer.isPresent())
-                return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+            return customer.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,12 +67,12 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> findByUsername(@PathVariable("username") String username) {
         try {
             List<Customer> customers = customerService.findByUsername(username);
-            if (customers.size() > 0)
-                return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
+            if (!customers.isEmpty())
+                return new ResponseEntity<>(customers, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Customer>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Customer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -87,12 +85,12 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> findByName(@PathVariable("name") String name) {
         try {
             List<Customer> customers = customerService.findByName(name);
-            if (customers.size() > 0)
-                return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
+            if (!customers.isEmpty())
+                return new ResponseEntity<>(customers, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Customer>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Customer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -105,11 +103,9 @@ public class CustomerController {
     public ResponseEntity<Customer> findByDni(@PathVariable("dni") String dni) {
         try {
             Optional<Customer> customer = customerService.findByDni(dni);
-            if (!customer.isPresent())
-                return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+            return customer.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -122,11 +118,9 @@ public class CustomerController {
     public ResponseEntity<Customer> findByDni(@PathVariable("email") String email, @PathVariable("password") String password) {
         try {
             Optional<Customer> customer = customerService.findByEmailAndPassword(email, password);
-            if (!customer.isPresent())
-                return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+            return customer.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -141,7 +135,7 @@ public class CustomerController {
             Customer customerNew = customerService.save(customer);
             return ResponseEntity.status(HttpStatus.CREATED).body(customerNew);
         } catch (Exception e) {
-            return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -157,12 +151,12 @@ public class CustomerController {
         try {
             Optional<Customer> customerUp = customerService.getById(id);
             if (!customerUp.isPresent())
-                return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             customer.setId(id);
             customerService.save(customer);
-            return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+            return new ResponseEntity<>(customer, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -176,12 +170,12 @@ public class CustomerController {
         try {
             Optional<Customer> customerDelete = customerService.getById(id);
             if (!customerDelete.isPresent()) {
-                return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             customerService.delete(id);
-            return new ResponseEntity<Customer>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Customer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
