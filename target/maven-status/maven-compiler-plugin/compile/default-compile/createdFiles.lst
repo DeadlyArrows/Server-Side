@@ -3,6 +3,8 @@ com\hackdead\wheelmanager\core\service\IVehicleService.class
 com\hackdead\wheelmanager\core\entities\UserAddress.class
 com\hackdead\wheelmanager\controller\VehicleController.class
 com\hackdead\wheelmanager\core\entities\Subscription.class
+com\hackdead\wheelmanager\maps\mapper\VehicleTypeMapper.class
+com\hackdead\wheelmanager\maps\request\VehicleTypeRequest.class
 com\hackdead\wheelmanager\service\CustomerServiceImpl.class
 com\hackdead\wheelmanager\controller\AddressController.class
 com\hackdead\wheelmanager\core\entities\Vehicle.class
@@ -10,6 +12,7 @@ com\hackdead\wheelmanager\core\service\IStatusService.class
 com\hackdead\wheelmanager\service\VehicleServiceImpl.class
 com\hackdead\wheelmanager\core\repository\ICreditCardRepository.class
 com\hackdead\wheelmanager\service\CreditCardServiceImpl.class
+com\hackdead\wheelmanager\maps\request\StatusRequest.class
 com\hackdead\wheelmanager\core\entities\Offer.class
 com\hackdead\wheelmanager\core\repository\IVehicleRepository.class
 com\hackdead\wheelmanager\core\repository\ICustomerRepository.class
@@ -26,6 +29,7 @@ com\hackdead\wheelmanager\core\service\IReservationService.class
 com\hackdead\wheelmanager\service\SubscriptionServiceImpl.class
 com\hackdead\wheelmanager\controller\CreditCardController.class
 com\hackdead\wheelmanager\core\service\IBrandService.class
+com\hackdead\wheelmanager\maps\mapper\StatusMapper.class
 com\hackdead\wheelmanager\core\entities\Comment.class
 com\hackdead\wheelmanager\service\VehicleTypeServiceImpl.class
 com\hackdead\wheelmanager\service\StatusServiceImpl.class
