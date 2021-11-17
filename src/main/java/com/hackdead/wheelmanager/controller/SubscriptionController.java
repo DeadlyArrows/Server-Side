@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Subscription;
 import com.hackdead.wheelmanager.core.service.ISubscriptionService;
+import com.hackdead.wheelmanager.maps.mapper.SubscriptionMapper;
+import com.hackdead.wheelmanager.maps.request.SubscriptionRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -32,7 +34,7 @@ public class SubscriptionController {
         Date result = null;
         try {
             result = format.parse(date);
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
         return result;
     }
@@ -46,12 +48,12 @@ public class SubscriptionController {
     public ResponseEntity<List<Subscription>> findAll() {
         try {
             List<Subscription> subscriptions = subscriptionService.getAll();
-            if (subscriptions.size() > 0)
-                return new ResponseEntity<List<Subscription>>(subscriptions, HttpStatus.OK);
+            if (!subscriptions.isEmpty())
+                return new ResponseEntity<>(subscriptions, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Subscription>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Subscription>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -64,11 +66,9 @@ public class SubscriptionController {
     public ResponseEntity<Subscription> findById(@PathVariable("id") Long id) {
         try {
             Optional<Subscription> subscription = subscriptionService.getById(id);
-            if (!subscription.isPresent())
-                return new ResponseEntity<Subscription>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Subscription>(subscription.get(), HttpStatus.OK);
+            return subscription.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Subscription>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -82,12 +82,12 @@ public class SubscriptionController {
         try {
             Date startDateNew = ParseDate(startDate);
             List<Subscription> subscriptions = subscriptionService.findSubscriptionByStartDate(startDateNew);
-            if (subscriptions.size() > 0)
-                return new ResponseEntity<List<Subscription>>(subscriptions, HttpStatus.OK);
+            if (!subscriptions.isEmpty())
+                return new ResponseEntity<>(subscriptions, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Subscription>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Subscription>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -97,12 +97,12 @@ public class SubscriptionController {
             @ApiResponse(code = 201, message = "Subscription found"),
             @ApiResponse(code = 404, message = "Subscription not found")
     })
-    public ResponseEntity<Subscription> insertSubscription(@Valid @RequestBody Subscription subscription) {
+    public ResponseEntity<Subscription> insertSubscription(@Valid @RequestBody SubscriptionRequest subscriptionRequest) {
         try {
-            Subscription subscriptionNew = subscriptionService.save(subscription);
+            Subscription subscriptionNew = subscriptionService.save(SubscriptionMapper.toSubscription(subscriptionRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionNew);
         } catch (Exception e) {
-            return new ResponseEntity<Subscription>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -114,16 +114,17 @@ public class SubscriptionController {
             @ApiResponse(code = 404, message = "Subscriptions not updated")
     })
     public ResponseEntity<Subscription> updateSubscription(
-            @PathVariable("id") Long id, @Valid @RequestBody Subscription subscription) {
+            @PathVariable("id") Long id, @Valid @RequestBody SubscriptionRequest subscriptionRequest) {
         try {
             Optional<Subscription> subscriptionUp = subscriptionService.getById(id);
             if (!subscriptionUp.isPresent())
-                return new ResponseEntity<Subscription>(HttpStatus.NOT_FOUND);
-            subscription.setId(id);
-            subscriptionService.save(subscription);
-            return new ResponseEntity<Subscription>(subscription, HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            Subscription subscriptionUpdate = SubscriptionMapper.toSubscription(subscriptionRequest);
+            subscriptionUpdate.setId(id);
+            subscriptionService.save(subscriptionUpdate);
+            return new ResponseEntity<>(subscriptionUpdate, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Subscription>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -137,11 +138,11 @@ public class SubscriptionController {
         try {
             Optional<Subscription> deleteSubscription = subscriptionService.getById(id);
             if (!deleteSubscription.isPresent())
-                return new ResponseEntity<Subscription>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             subscriptionService.delete(id);
-            return new ResponseEntity<Subscription>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Subscription>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
