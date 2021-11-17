@@ -7,6 +7,7 @@ H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\whee
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\CreditCardController.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\service\IVehicleService.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\service\ICommentService.java
+H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\mapper\VehicleTypeMapper.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\RentalActivityController.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\repository\IBrandRepository.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\repository\ICreditCardRepository.java
@@ -26,6 +27,7 @@ H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\whee
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\BrandController.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Comment.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\service\ISubscriptionService.java
+H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\request\VehicleTypeRequest.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Address.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\VehicleController.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Vehicle.java

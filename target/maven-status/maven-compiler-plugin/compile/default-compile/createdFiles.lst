@@ -3,6 +3,8 @@ com\hackdead\wheelmanager\core\service\IVehicleService.class
 com\hackdead\wheelmanager\core\entities\UserAddress.class
 com\hackdead\wheelmanager\controller\VehicleController.class
 com\hackdead\wheelmanager\core\entities\Subscription.class
+com\hackdead\wheelmanager\maps\mapper\VehicleTypeMapper.class
+com\hackdead\wheelmanager\maps\request\VehicleTypeRequest.class
 com\hackdead\wheelmanager\service\CustomerServiceImpl.class
 com\hackdead\wheelmanager\controller\AddressController.class
 com\hackdead\wheelmanager\core\entities\Vehicle.class

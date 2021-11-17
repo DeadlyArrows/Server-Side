@@ -36,7 +36,7 @@ public class VehicleTypeController {
     public ResponseEntity<List<VehicleType>> findAll() {
         try {
             List<VehicleType> vehicleTypes = vehicleTypeService.getAll();
-            if (vehicleTypes.size() > 0)
+            if (!vehicleTypes.isEmpty())
                 return new ResponseEntity<>(vehicleTypes, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -69,7 +69,7 @@ public class VehicleTypeController {
     public ResponseEntity<List<VehicleType>> findByTypeName(@PathVariable("typeName") String typeName) {
         try {
             List<VehicleType> vehicleTypes = vehicleTypeService.findByTypeName(typeName);
-            if (vehicleTypes.size() > 0)
+            if (!vehicleTypes.isEmpty())
                 return new ResponseEntity<>(vehicleTypes, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
