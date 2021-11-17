@@ -30,12 +30,14 @@ H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\whee
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\request\VehicleTypeRequest.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Address.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\controller\VehicleController.java
+H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\mapper\StatusMapper.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Vehicle.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\repository\IRentalActivityRepository.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\service\UserAddressServiceImpl.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\service\IRentalActivityService.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\Subscription.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\core\entities\VehicleType.java
+H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\request\StatusRequest.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\util\SwaggerConfiguration.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\service\ReservationServiceImpl.java
 H:\UPC\2021-02\Diseño\Trabajo\Codigo\Server-Side\src\main\java\com\hackdead\wheelmanager\maps\request\AddressRequest.java

@@ -36,7 +36,7 @@ public class StatusController {
     public ResponseEntity<List<Status>> findAll() {
         try {
             List<Status> statuses = statusService.getAll();
-            if (statuses.size() > 0)
+            if (!statuses.isEmpty())
                 return new ResponseEntity<>(statuses, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -70,7 +70,7 @@ public class StatusController {
     public ResponseEntity<List<Status>> findByStatusName(@PathVariable("statusName") String statusName) {
         try {
             List<Status> statuses = statusService.findByStatusName(statusName);
-            if (statuses.size() > 0)
+            if (!statuses.isEmpty())
                 return new ResponseEntity<>(statuses, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
