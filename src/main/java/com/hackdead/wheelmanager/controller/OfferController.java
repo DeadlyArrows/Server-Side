@@ -34,12 +34,12 @@ public class OfferController {
     public ResponseEntity<List<Offer>> findAll() {
         try {
             List<Offer> offers = offerService.getAll();
-            if (offers.size() > 0)
-                return new ResponseEntity<List<Offer>>(offers, HttpStatus.OK);
+            if (!offers.isEmpty())
+                return new ResponseEntity<>(offers, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Offer>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Offer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,10 +53,10 @@ public class OfferController {
         try {
             Optional<Offer> offer = offerService.getById(id);
             if (!offer.isPresent())
-                return new ResponseEntity<Offer>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Offer>(offer.get(), HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(offer.get(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,12 +69,12 @@ public class OfferController {
     public ResponseEntity<List<Offer>> findByOfferName(@PathVariable("offerName") String offerName) {
         try {
             List<Offer> offers = offerService.findByOfferName(offerName);
-            if (offers.size() > 0)
-                return new ResponseEntity<List<Offer>>(offers, HttpStatus.OK);
+            if (!offers.isEmpty())
+                return new ResponseEntity<>(offers, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Offer>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Offer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -89,7 +89,7 @@ public class OfferController {
             Offer offerNew = offerService.save(offer);
             return ResponseEntity.status(HttpStatus.CREATED).body(offerNew);
         } catch (Exception e) {
-            return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -105,12 +105,12 @@ public class OfferController {
         try {
             Optional<Offer> offerUp = offerService.getById(id);
             if (!offerUp.isPresent())
-                return new ResponseEntity<Offer>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             offer.setId(id);
             offerService.save(offer);
-            return new ResponseEntity<Offer>(offer, HttpStatus.OK);
+            return new ResponseEntity<>(offer, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -124,11 +124,11 @@ public class OfferController {
         try {
             Optional<Offer> offerDelete = offerService.getById(id);
             if (!offerDelete.isPresent())
-                return new ResponseEntity<Offer>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             offerService.delete(id);
-            return new ResponseEntity<Offer>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Offer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
