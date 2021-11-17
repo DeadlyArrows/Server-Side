@@ -101,14 +101,15 @@ public class AddressController {
             @ApiResponse(code = 404, message = "Address not updated")
     })
     public ResponseEntity<Address> updateAddress(
-            @PathVariable("id") Long id, @Valid @RequestBody Address address) {
+            @PathVariable("id") Long id, @Valid @RequestBody AddressRequest addressRequest) {
         try {
             Optional<Address> addressUp = addressService.getById(id);
             if (!addressUp.isPresent())
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            address.setId(id);
-            addressService.save(address);
-            return new ResponseEntity<>(address, HttpStatus.OK);
+            Address addressUpdate = AddressMapper.toAddress(addressRequest);
+            addressUpdate.setId(id);
+            addressService.save(addressUpdate);
+            return new ResponseEntity<>(addressUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
