@@ -34,12 +34,12 @@ public class UserAddressController {
     public ResponseEntity<List<UserAddress>> findAll() {
         try {
             List<UserAddress> userAddresses = userAddressService.getAll();
-            if (userAddresses.size() > 0)
-                return new ResponseEntity<List<UserAddress>>(userAddresses, HttpStatus.OK);
+            if (!userAddresses.isEmpty())
+                return new ResponseEntity<>(userAddresses, HttpStatus.OK);
             else
-                return new ResponseEntity<List<UserAddress>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<UserAddress>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,10 +53,10 @@ public class UserAddressController {
         try {
             Optional<UserAddress> userAddress = userAddressService.getById(id);
             if (!userAddress.isPresent())
-                return new ResponseEntity<UserAddress>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<UserAddress>(userAddress.get(), HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(userAddress.get(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<UserAddress>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -71,7 +71,7 @@ public class UserAddressController {
             UserAddress userAddressNew = userAddressService.save(userAddress);
             return ResponseEntity.status(HttpStatus.CREATED).body(userAddressNew);
         } catch (Exception e) {
-            return new ResponseEntity<UserAddress>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -87,12 +87,12 @@ public class UserAddressController {
         try {
             Optional<UserAddress> userAddressUp = userAddressService.getById(id);
             if (!userAddressUp.isPresent())
-                return new ResponseEntity<UserAddress>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             userAddress.setId(id);
             userAddressService.save(userAddress);
-            return new ResponseEntity<UserAddress>(userAddress, HttpStatus.OK);
+            return new ResponseEntity<>(userAddress, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<UserAddress>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -106,11 +106,11 @@ public class UserAddressController {
         try {
             Optional<UserAddress> deleteUserAddress = userAddressService.getById(id);
             if (!deleteUserAddress.isPresent())
-                return new ResponseEntity<UserAddress>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             userAddressService.delete(id);
-            return new ResponseEntity<UserAddress>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<UserAddress>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
