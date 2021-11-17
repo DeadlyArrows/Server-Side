@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Brand;
 import com.hackdead.wheelmanager.core.service.IBrandService;
+import com.hackdead.wheelmanager.maps.mapper.BrandMapper;
+import com.hackdead.wheelmanager.maps.request.BrandRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -84,9 +86,9 @@ public class BrandController {
             @ApiResponse(code = 201, message = "Brand found"),
             @ApiResponse(code = 404, message = "Brand not found")
     })
-    public ResponseEntity<Brand> insertBrand(@Valid @RequestBody Brand brand) {
+    public ResponseEntity<Brand> insertBrand(@Valid @RequestBody BrandRequest brandRequest) {
         try {
-            Brand brandNew = brandService.save(brand);
+            Brand brandNew = brandService.save(BrandMapper.toBrand(brandRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(brandNew);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -101,14 +103,15 @@ public class BrandController {
             @ApiResponse(code = 404, message = "Brand not updated")
     })
     public ResponseEntity<Brand> updateBrand(
-            @PathVariable("id") Long id, @Valid @RequestBody Brand brand) {
+            @PathVariable("id") Long id, @Valid @RequestBody BrandRequest brandRequest) {
         try {
             Optional<Brand> brandUp = brandService.getById(id);
             if (!brandUp.isPresent())
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            brand.setId(id);
-            brandService.save(brand);
-            return new ResponseEntity<>(brand, HttpStatus.OK);
+            Brand brandUpdate = BrandMapper.toBrand(brandRequest);
+            brandUpdate.setId(id);
+            brandService.save(brandUpdate);
+            return new ResponseEntity<>(brandUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

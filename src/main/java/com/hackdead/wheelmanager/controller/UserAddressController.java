@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.UserAddress;
 import com.hackdead.wheelmanager.core.service.IUserAddressService;
+import com.hackdead.wheelmanager.maps.mapper.UserAddressMapper;
+import com.hackdead.wheelmanager.maps.request.UserAddressRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -52,9 +54,7 @@ public class UserAddressController {
     public ResponseEntity<UserAddress> findById(@PathVariable("id") Long id) {
         try {
             Optional<UserAddress> userAddress = userAddressService.getById(id);
-            if (!userAddress.isPresent())
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<>(userAddress.get(), HttpStatus.OK);
+            return userAddress.map(address -> new ResponseEntity<>(address, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -66,9 +66,9 @@ public class UserAddressController {
             @ApiResponse(code = 201, message = "UserAddress found"),
             @ApiResponse(code = 404, message = "UserAddress not found")
     })
-    public ResponseEntity<UserAddress> insertUserAddress(@Valid @RequestBody UserAddress userAddress) {
+    public ResponseEntity<UserAddress> insertUserAddress(@Valid @RequestBody UserAddressRequest userAddressRequest) {
         try {
-            UserAddress userAddressNew = userAddressService.save(userAddress);
+            UserAddress userAddressNew = userAddressService.save(UserAddressMapper.toUserAddress(userAddressRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(userAddressNew);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,14 +83,15 @@ public class UserAddressController {
             @ApiResponse(code = 404, message = "UserAddress not updated")
     })
     public ResponseEntity<UserAddress> updateUserAddress(
-            @PathVariable("id") Long id, @Valid @RequestBody UserAddress userAddress) {
+            @PathVariable("id") Long id, @Valid @RequestBody UserAddressRequest userAddressRequest) {
         try {
             Optional<UserAddress> userAddressUp = userAddressService.getById(id);
             if (!userAddressUp.isPresent())
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            userAddress.setId(id);
-            userAddressService.save(userAddress);
-            return new ResponseEntity<>(userAddress, HttpStatus.OK);
+            UserAddress userAddressUpdate = UserAddressMapper.toUserAddress(userAddressRequest);
+            userAddressUpdate.setId(id);
+            userAddressService.save(userAddressUpdate);
+            return new ResponseEntity<>(userAddressUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Customer;
 import com.hackdead.wheelmanager.core.service.ICustomerService;
+import com.hackdead.wheelmanager.maps.mapper.CustomerMapper;
+import com.hackdead.wheelmanager.maps.request.CustomerRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -130,9 +132,9 @@ public class CustomerController {
             @ApiResponse(code = 201, message = "Customer found"),
             @ApiResponse(code = 404, message = "Customer not found")
     })
-    public ResponseEntity<Customer> insertCustomer(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Customer> insertCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
         try {
-            Customer customerNew = customerService.save(customer);
+            Customer customerNew = customerService.save(CustomerMapper.toCustomer(customerRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(customerNew);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -147,14 +149,15 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "Customer not updated")
     })
     public ResponseEntity<Customer> updateCustomer(
-            @PathVariable("id") Long id, @Valid @RequestBody Customer customer) {
+            @PathVariable("id") Long id, @Valid @RequestBody CustomerRequest customerRequest) {
         try {
             Optional<Customer> customerUp = customerService.getById(id);
             if (!customerUp.isPresent())
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            customer.setId(id);
-            customerService.save(customer);
-            return new ResponseEntity<>(customer, HttpStatus.OK);
+            Customer customerUpdate = CustomerMapper.toCustomer(customerRequest);
+            customerUpdate.setId(id);
+            customerService.save(customerUpdate);
+            return new ResponseEntity<>(customerUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

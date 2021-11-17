@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Offer;
 import com.hackdead.wheelmanager.core.service.IOfferService;
+import com.hackdead.wheelmanager.maps.mapper.OfferMapper;
+import com.hackdead.wheelmanager.maps.request.OfferRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -84,9 +86,9 @@ public class OfferController {
             @ApiResponse(code = 201, message = "Offer found"),
             @ApiResponse(code = 404, message = "Offer not found")
     })
-    public ResponseEntity<Offer> insertOffer(@Valid @RequestBody Offer offer) {
+    public ResponseEntity<Offer> insertOffer(@Valid @RequestBody OfferRequest offerRequest) {
         try {
-            Offer offerNew = offerService.save(offer);
+            Offer offerNew = offerService.save(OfferMapper.toOffer(offerRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(offerNew);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -101,14 +103,15 @@ public class OfferController {
             @ApiResponse(code = 404, message = "Offer not updated")
     })
     public ResponseEntity<Offer> updateOffer(
-            @PathVariable("id") Long id, @Valid @RequestBody Offer offer) {
+            @PathVariable("id") Long id, @Valid @RequestBody OfferRequest offerRequest) {
         try {
             Optional<Offer> offerUp = offerService.getById(id);
             if (!offerUp.isPresent())
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            offer.setId(id);
-            offerService.save(offer);
-            return new ResponseEntity<>(offer, HttpStatus.OK);
+            Offer offerUpdate = OfferMapper.toOffer(offerRequest);
+            offerUpdate.setId(id);
+            offerService.save(offerUpdate);
+            return new ResponseEntity<>(offerUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

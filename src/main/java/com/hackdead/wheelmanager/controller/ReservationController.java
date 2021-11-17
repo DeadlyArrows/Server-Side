@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Reservation;
 import com.hackdead.wheelmanager.core.service.IReservationService;
+import com.hackdead.wheelmanager.maps.mapper.ReservationMapper;
+import com.hackdead.wheelmanager.maps.request.ReservationRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -64,9 +66,7 @@ public class ReservationController {
     public ResponseEntity<Reservation> findById(@PathVariable("id") Long id) {
         try {
             Optional<Reservation> reservation = reservationService.getById(id);
-            if (!reservation.isPresent())
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<>(reservation.get(), HttpStatus.OK);
+            return reservation.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -99,9 +99,9 @@ public class ReservationController {
             @ApiResponse(code = 201, message = "Reservation found"),
             @ApiResponse(code = 404, message = "Reservation not found")
     })
-    public ResponseEntity<Reservation> insertReservation(@Valid @RequestBody Reservation reservation) {
+    public ResponseEntity<Reservation> insertReservation(@Valid @RequestBody ReservationRequest reservationRequest) {
         try {
-            Reservation reservationNew = reservationService.save(reservation);
+            Reservation reservationNew = reservationService.save(ReservationMapper.toReservation(reservationRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(reservationNew);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -116,14 +116,15 @@ public class ReservationController {
             @ApiResponse(code = 404, message = "Reservation not updated")
     })
     public ResponseEntity<Reservation> updateReservation(
-            @PathVariable("id") Long id, @Valid @RequestBody Reservation reservation) {
+            @PathVariable("id") Long id, @Valid @RequestBody ReservationRequest reservationRequest) {
         try {
             Optional<Reservation> reservationUp = reservationService.getById(id);
             if (!reservationUp.isPresent())
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            reservation.setId(id);
-            reservationService.save(reservation);
-            return new ResponseEntity<>(reservation, HttpStatus.OK);
+            Reservation reservationUpdate = ReservationMapper.toReservation(reservationRequest);
+            reservationUpdate.setId(id);
+            reservationService.save(reservationUpdate);
+            return new ResponseEntity<>(reservationUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

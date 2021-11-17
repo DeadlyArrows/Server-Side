@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.RentalActivity;
 import com.hackdead.wheelmanager.core.service.IRentalActivityService;
+import com.hackdead.wheelmanager.maps.mapper.RentalActivityMapper;
+import com.hackdead.wheelmanager.maps.request.RentalActivityRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -66,9 +68,9 @@ public class RentalActivityController {
             @ApiResponse(code = 201, message = "Rental Activity found"),
             @ApiResponse(code = 404, message = "Rental Activity not found")
     })
-    public ResponseEntity<RentalActivity> insertRentalActivity(@Valid @RequestBody RentalActivity rentalActivity) {
+    public ResponseEntity<RentalActivity> insertRentalActivity(@Valid @RequestBody RentalActivityRequest rentalActivityRequest) {
         try {
-            RentalActivity rentalActivityNew = rentalActivityService.save(rentalActivity);
+            RentalActivity rentalActivityNew = rentalActivityService.save(RentalActivityMapper.toRentalActivity(rentalActivityRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(rentalActivityNew);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,14 +85,15 @@ public class RentalActivityController {
             @ApiResponse(code = 404, message = "Rental Activity not updated")
     })
     public ResponseEntity<RentalActivity> updateRentalActivity(
-            @PathVariable("id") Long id, @Valid @RequestBody RentalActivity rentalActivity) {
+            @PathVariable("id") Long id, @Valid @RequestBody RentalActivityRequest rentalActivityRequest) {
         try {
             Optional<RentalActivity> rentalActivityUp = rentalActivityService.getById(id);
             if (!rentalActivityUp.isPresent())
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            rentalActivity.setId(id);
-            rentalActivityService.save(rentalActivity);
-            return new ResponseEntity<>(rentalActivity, HttpStatus.OK);
+            RentalActivity rentalActivityUpdate = RentalActivityMapper.toRentalActivity(rentalActivityRequest);
+            rentalActivityUpdate.setId(id);
+            rentalActivityService.save(rentalActivityUpdate);
+            return new ResponseEntity<>(rentalActivityUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
