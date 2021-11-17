@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.CreditCard;
 import com.hackdead.wheelmanager.core.service.ICreditCardService;
+import com.hackdead.wheelmanager.maps.mapper.CreditCardMapper;
+import com.hackdead.wheelmanager.maps.request.CreditCardRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -34,12 +36,12 @@ public class CreditCardController {
     public ResponseEntity<List<CreditCard>> findAll() {
         try {
             List<CreditCard> creditCards = creditCardService.getAll();
-            if (creditCards.size() > 0)
-                return new ResponseEntity<List<CreditCard>>(creditCards, HttpStatus.OK);
+            if (!creditCards.isEmpty())
+                return new ResponseEntity<>(creditCards, HttpStatus.OK);
             else
-                return new ResponseEntity<List<CreditCard>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<CreditCard>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -52,11 +54,9 @@ public class CreditCardController {
     public ResponseEntity<CreditCard> findById(@PathVariable("id") Long id) {
         try {
             Optional<CreditCard> creditCard = creditCardService.getById(id);
-            if (!creditCard.isPresent())
-                return new ResponseEntity<CreditCard>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<CreditCard>(creditCard.get(), HttpStatus.OK);
+            return creditCard.map(card -> new ResponseEntity<>(card, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<CreditCard>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,12 +69,12 @@ public class CreditCardController {
     public ResponseEntity<List<CreditCard>> findByCardNumber(@PathVariable("cardNumber") String cardNumber) {
         try {
             List<CreditCard> creditCards = creditCardService.findCreditCardsByCardNumber(cardNumber);
-            if (creditCards.size() > 0)
-                return new ResponseEntity<List<CreditCard>>(creditCards, HttpStatus.OK);
+            if (!creditCards.isEmpty())
+                return new ResponseEntity<>(creditCards, HttpStatus.OK);
             else
-                return new ResponseEntity<List<CreditCard>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<CreditCard>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -86,16 +86,17 @@ public class CreditCardController {
             @ApiResponse(code = 404, message = "Credit Card not updated")
     })
     public ResponseEntity<CreditCard> updateCreditCard(
-            @PathVariable("id") Long id, @Valid @RequestBody CreditCard creditCard) {
+            @PathVariable("id") Long id, @Valid @RequestBody CreditCardRequest creditCardRequest) {
         try {
             Optional<CreditCard> creditCardUp = creditCardService.getById(id);
             if (!creditCardUp.isPresent())
-                return new ResponseEntity<CreditCard>(HttpStatus.NOT_FOUND);
-            creditCard.setId(id);
-            creditCardService.save(creditCard);
-            return new ResponseEntity<CreditCard>(creditCard, HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            CreditCard creditCardUpdate = CreditCardMapper.toCreditCard(creditCardRequest);
+            creditCardUpdate.setId(id);
+            creditCardService.save(creditCardUpdate);
+            return new ResponseEntity<>(creditCardUpdate, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<CreditCard>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -105,12 +106,12 @@ public class CreditCardController {
             @ApiResponse(code = 201, message = "Credit Card found"),
             @ApiResponse(code = 404, message = "Credit Card not found")
     })
-    public ResponseEntity<CreditCard> insertCreditCard(@Valid @RequestBody CreditCard creditCard) {
+    public ResponseEntity<CreditCard> insertCreditCard(@Valid @RequestBody CreditCardRequest creditCardRequest) {
         try {
-            CreditCard creditCardNew = creditCardService.save(creditCard);
+            CreditCard creditCardNew = creditCardService.save(CreditCardMapper.toCreditCard(creditCardRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(creditCardNew);
         } catch (Exception e) {
-            return new ResponseEntity<CreditCard>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -124,11 +125,11 @@ public class CreditCardController {
         try {
             Optional<CreditCard> deleteVehicle = creditCardService.getById(id);
             if (!deleteVehicle.isPresent())
-                return new ResponseEntity<CreditCard>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             creditCardService.delete(id);
-            return new ResponseEntity<CreditCard>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<CreditCard>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
