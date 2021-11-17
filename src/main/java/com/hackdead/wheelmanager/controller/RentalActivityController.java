@@ -34,12 +34,12 @@ public class RentalActivityController {
     public ResponseEntity<List<RentalActivity>> findAll() {
         try {
             List<RentalActivity> rentalActivities = rentalActivityService.getAll();
-            if (rentalActivities.size() > 0)
-                return new ResponseEntity<List<RentalActivity>>(rentalActivities, HttpStatus.OK);
+            if (!rentalActivities.isEmpty())
+                return new ResponseEntity<>(rentalActivities, HttpStatus.OK);
             else
-                return new ResponseEntity<List<RentalActivity>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<RentalActivity>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -53,10 +53,10 @@ public class RentalActivityController {
         try {
             Optional<RentalActivity> rentalActivity = rentalActivityService.getById(id);
             if (!rentalActivity.isPresent())
-                return new ResponseEntity<RentalActivity>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<RentalActivity>(rentalActivity.get(), HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(rentalActivity.get(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<RentalActivity>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -71,7 +71,7 @@ public class RentalActivityController {
             RentalActivity rentalActivityNew = rentalActivityService.save(rentalActivity);
             return ResponseEntity.status(HttpStatus.CREATED).body(rentalActivityNew);
         } catch (Exception e) {
-            return new ResponseEntity<RentalActivity>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -87,12 +87,12 @@ public class RentalActivityController {
         try {
             Optional<RentalActivity> rentalActivityUp = rentalActivityService.getById(id);
             if (!rentalActivityUp.isPresent())
-                return new ResponseEntity<RentalActivity>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             rentalActivity.setId(id);
             rentalActivityService.save(rentalActivity);
-            return new ResponseEntity<RentalActivity>(rentalActivity, HttpStatus.OK);
+            return new ResponseEntity<>(rentalActivity, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<RentalActivity>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -106,11 +106,11 @@ public class RentalActivityController {
         try {
             Optional<RentalActivity> deleteRentalActivity = rentalActivityService.getById(id);
             if (!deleteRentalActivity.isPresent())
-                return new ResponseEntity<RentalActivity>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             rentalActivityService.delete(id);
-            return new ResponseEntity<RentalActivity>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<RentalActivity>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
