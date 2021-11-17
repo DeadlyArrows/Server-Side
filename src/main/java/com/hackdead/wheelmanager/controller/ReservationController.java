@@ -27,12 +27,12 @@ public class ReservationController {
     @Autowired
     private IReservationService reservationService;
 
-    public static Date ParseDate(String date) {
+    public static Date parseDate(String date) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Date result = null;
         try {
             result = format.parse(date);
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
         return result;
     }
@@ -46,12 +46,12 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> findAll() {
         try {
             List<Reservation> reservations = reservationService.getAll();
-            if (reservations.size() > 0)
-                return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
+            if (!reservations.isEmpty())
+                return new ResponseEntity<>(reservations, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Reservation>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Reservation>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -65,10 +65,10 @@ public class ReservationController {
         try {
             Optional<Reservation> reservation = reservationService.getById(id);
             if (!reservation.isPresent())
-                return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Reservation>(reservation.get(), HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(reservation.get(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Reservation>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -81,15 +81,15 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> findByReservationBetweenDates(@RequestParam(name = "startDate") String startDate,
                                                                            @RequestParam(name = "endDate") String endDate) {
         try {
-            Date startDateNew = ParseDate(startDate);
-            Date endDateNew = ParseDate(endDate);
+            Date startDateNew = parseDate(startDate);
+            Date endDateNew = parseDate(endDate);
             List<Reservation> reservations = reservationService.findBetweenDate(startDateNew, endDateNew);
-            if (reservations.size() > 0)
-                return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
+            if (!reservations.isEmpty())
+                return new ResponseEntity<>(reservations, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Reservation>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Reservation>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -104,7 +104,7 @@ public class ReservationController {
             Reservation reservationNew = reservationService.save(reservation);
             return ResponseEntity.status(HttpStatus.CREATED).body(reservationNew);
         } catch (Exception e) {
-            return new ResponseEntity<Reservation>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -120,12 +120,12 @@ public class ReservationController {
         try {
             Optional<Reservation> reservationUp = reservationService.getById(id);
             if (!reservationUp.isPresent())
-                return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             reservation.setId(id);
             reservationService.save(reservation);
-            return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+            return new ResponseEntity<>(reservation, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Reservation>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -139,11 +139,11 @@ public class ReservationController {
         try {
             Optional<Reservation> deleteReservation = reservationService.getById(id);
             if (!deleteReservation.isPresent())
-                return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             reservationService.delete(id);
-            return new ResponseEntity<Reservation>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Reservation>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
