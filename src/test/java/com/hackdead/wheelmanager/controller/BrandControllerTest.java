@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = BrandController.class)
 @ActiveProfiles("test")
-public class BrandControllerTest {
+class BrandControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean

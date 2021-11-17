@@ -21,14 +21,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class CustomerServiceImplTest {
+class CustomerServiceImplTest {
     @Mock
     private ICustomerRepository customerRepository;
     @InjectMocks
     private CustomerServiceImpl customerService;
 
     @Test
-    public void saveTest(){
+    void saveTest(){
         Customer customer = new Customer(1L, "Juan", "asdf", "jose@gmail.com", "Jose", "Carlos", "url_image.com", "12345678", "Male", new Date());
 
         given(customerRepository.save(customer)).willReturn(customer);
@@ -36,7 +36,8 @@ public class CustomerServiceImplTest {
         Customer savedCustomer = null;
         try{
             savedCustomer = customerService.save(customer);
-        }catch (Exception e){
+        }catch (Exception e) {
+            e.printStackTrace();
         }
         assertThat(savedCustomer).isNotNull();
         verify(customerRepository).save(any(Customer.class));

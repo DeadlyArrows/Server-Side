@@ -34,7 +34,8 @@ public class SubscriptionController {
         Date result = null;
         try {
             result = format.parse(date);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
     }

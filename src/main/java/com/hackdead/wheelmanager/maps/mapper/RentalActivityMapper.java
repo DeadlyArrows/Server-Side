@@ -4,6 +4,10 @@ import com.hackdead.wheelmanager.core.entities.RentalActivity;
 import com.hackdead.wheelmanager.maps.request.RentalActivityRequest;
 
 public class RentalActivityMapper {
+    private RentalActivityMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static RentalActivity toRentalActivity(RentalActivityRequest rentalActivityRequest) {
         RentalActivity rentalActivity = new RentalActivity();
         rentalActivity.setPrice(rentalActivityRequest.getPrice());

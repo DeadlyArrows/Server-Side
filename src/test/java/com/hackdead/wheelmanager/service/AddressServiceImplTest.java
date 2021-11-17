@@ -20,14 +20,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class AddressServiceImplTest {
+class AddressServiceImplTest {
     @Mock
     private IAddressRepository addressRepository;
     @InjectMocks
     private AddressServiceImpl addressService;
 
     @Test
-    public void saveTest(){
+    void saveTest(){
         Address address = new Address(1L, 103.5,105.3,"San Jose 247");
         given(addressRepository.save(address)).willReturn(address);
 

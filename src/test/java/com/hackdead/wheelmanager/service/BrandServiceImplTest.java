@@ -20,14 +20,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class BrandServiceImplTest {
+ class BrandServiceImplTest {
     @Mock
     private IBrandRepository brandRepository;
     @InjectMocks
     private BrandServiceImpl brandService;
 
     @Test
-    public void saveTest(){
+     void saveTest(){
         Brand brand=new Brand(1L, "Gzuk");
         given(brandRepository.save(brand)).willReturn(brand);
 

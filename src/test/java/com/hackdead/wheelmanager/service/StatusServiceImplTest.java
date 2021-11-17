@@ -20,14 +20,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class StatusServiceImplTest {
+class StatusServiceImplTest {
     @Mock
     private IStatusRepository statusRepository;
     @InjectMocks
     private StatusServiceImpl statusService;
 
     @Test
-    public void saveTest(){
+    void saveTest(){
         Status status = new Status(1L, "Occupied");
 
         given(statusRepository.save(status)).willReturn(status);

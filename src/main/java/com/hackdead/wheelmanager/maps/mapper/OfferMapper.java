@@ -4,6 +4,10 @@ import com.hackdead.wheelmanager.core.entities.Offer;
 import com.hackdead.wheelmanager.maps.request.OfferRequest;
 
 public class OfferMapper {
+    private OfferMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Offer toOffer(OfferRequest offerRequest) {
         Offer offer = new Offer();
         offer.setOfferName(offerRequest.getOfferName());

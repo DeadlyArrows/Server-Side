@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = StatusController.class)
 @ActiveProfiles("test")
-public class StatusControllerTest {
+class StatusControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean

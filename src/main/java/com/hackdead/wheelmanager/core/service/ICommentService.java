@@ -6,5 +6,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface ICommentService extends CrudService<Comment> {
-    List<Comment> findCommentByPublicationDate(Date publicationDate) throws Exception;
+    List<Comment> findCommentByPublicationDate(Date publicationDate);
 }

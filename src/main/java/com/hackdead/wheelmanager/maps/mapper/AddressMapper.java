@@ -4,6 +4,10 @@ import com.hackdead.wheelmanager.core.entities.Address;
 import com.hackdead.wheelmanager.maps.request.AddressRequest;
 
 public class AddressMapper {
+    private AddressMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Address toAddress(AddressRequest addressRequest) {
         Address address = new Address();
         address.setLatitude(addressRequest.getLatitude());

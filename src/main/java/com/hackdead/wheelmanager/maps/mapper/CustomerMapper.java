@@ -4,6 +4,10 @@ import com.hackdead.wheelmanager.core.entities.Customer;
 import com.hackdead.wheelmanager.maps.request.CustomerRequest;
 
 public class CustomerMapper {
+    private CustomerMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Customer toCustomer(CustomerRequest customerRequest) {
         Customer customer = new Customer();
         customer.setUsername(customerRequest.getUsername());

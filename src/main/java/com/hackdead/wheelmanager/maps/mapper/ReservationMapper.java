@@ -4,6 +4,10 @@ import com.hackdead.wheelmanager.core.entities.Reservation;
 import com.hackdead.wheelmanager.maps.request.ReservationRequest;
 
 public class ReservationMapper {
+    private ReservationMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Reservation toReservation(ReservationRequest reservationRequest) {
         Reservation reservation = new Reservation();
         reservation.setStartDate(reservationRequest.getStartDate());

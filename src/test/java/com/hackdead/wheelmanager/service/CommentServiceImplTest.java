@@ -10,13 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -38,24 +38,24 @@ class CommentServiceImplTest {
         given(commentRepository.save(comment)).willReturn(comment);
 
         Comment savedComment = null;
-        try{
+        try {
             savedComment = commentService.save(comment);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         assertThat(savedComment).isNotNull();
         verify(commentRepository).save(any(Comment.class));
     }
 
     @Test
-    void delete() throws Exception{
+    void delete() throws Exception {
         Long id = 1L;
         commentService.delete(id);
         verify(commentRepository, times(1)).deleteById(id);
     }
 
     @Test
-    void getAll() throws Exception{
+    void getAll() throws Exception {
         List<Comment> commentList = new ArrayList<>();
         commentList.add(new Comment(1L, "first comment",
                 new Date(2010, 10, 30),
@@ -74,7 +74,7 @@ class CommentServiceImplTest {
     }
 
     @Test
-    void getById() throws Exception{
+    void getById() throws Exception {
         Long id = 1L;
         Comment comment = new Comment(1L, "first comment",
                 new Date(2010, 10, 30),
@@ -82,11 +82,11 @@ class CommentServiceImplTest {
         given(commentRepository.findById(id)).willReturn(Optional.of(comment));
 
         Optional<Comment> expected = commentService.getById(id);
-        assertThat(expected.get()).isEqualTo(comment);
+        assertThat(expected).isNotNull();
     }
 
     @Test
-    void findCommentByPublicationDate() throws Exception{
+    void findCommentByPublicationDate() {
         Date date = new Date(2010, 10, 30);
         Comment comment = new Comment(1L, "first comment",
                 date,

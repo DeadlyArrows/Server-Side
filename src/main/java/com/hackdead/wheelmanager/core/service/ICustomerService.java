@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerService extends CrudService<Customer> {
-    List<Customer> findByUsername(String username) throws Exception;
+    List<Customer> findByUsername(String username);
 
-    List<Customer> findByName(String name) throws Exception;
+    List<Customer> findByName(String name);
 
-    Optional<Customer> findByDni(String dni) throws Exception;
+    Optional<Customer> findByDni(String dni);
 
-    Optional<Customer> findByEmailAndPassword(String email, String password) throws Exception;
+    Optional<Customer> findByEmailAndPassword(String email, String password);
 }

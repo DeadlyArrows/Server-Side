@@ -4,6 +4,10 @@ import com.hackdead.wheelmanager.core.entities.Subscription;
 import com.hackdead.wheelmanager.maps.request.SubscriptionRequest;
 
 public class SubscriptionMapper {
+    private SubscriptionMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Subscription toSubscription(SubscriptionRequest subscriptionRequest) {
         Subscription subscription = new Subscription();
         subscription.setSubscriptionPrice(subscriptionRequest.getSubscriptionPrice());
