@@ -1,7 +1,6 @@
 package com.hackdead.wheelmanager.core.service;
 
 import com.hackdead.wheelmanager.core.entities.Comment;
-import com.hackdead.wheelmanager.core.service.CrudService;
 
 import java.util.Date;
 import java.util.List;
