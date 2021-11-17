@@ -2,6 +2,8 @@ package com.hackdead.wheelmanager.controller;
 
 import com.hackdead.wheelmanager.core.entities.Comment;
 import com.hackdead.wheelmanager.core.service.ICommentService;
+import com.hackdead.wheelmanager.maps.mapper.CommentMapper;
+import com.hackdead.wheelmanager.maps.request.CommentRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -32,7 +34,7 @@ public class CommentController {
         Date result = null;
         try {
             result = format.parse(date);
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
         return result;
     }
@@ -46,12 +48,12 @@ public class CommentController {
     public ResponseEntity<List<Comment>> findAll() {
         try {
             List<Comment> comments = commentService.getAll();
-            if (comments.size() > 0)
-                return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
+            if (comments.isEmpty())
+                return new ResponseEntity<>(comments, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Comment>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
-            return new ResponseEntity<List<Comment>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -64,11 +66,9 @@ public class CommentController {
     public ResponseEntity<Comment> findById(@PathVariable("id") Long id) {
         try {
             Optional<Comment> comment = commentService.getById(id);
-            if (!comment.isPresent())
-                return new ResponseEntity<Comment>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Comment>(comment.get(), HttpStatus.OK);
+            return comment.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         } catch (Exception e) {
-            return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -82,12 +82,12 @@ public class CommentController {
         try {
             Date publicationDateNew = ParseDate(publicationDate);
             List<Comment> comments = commentService.findCommentByPublicationDate(publicationDateNew);
-            if (comments.size() > 0)
-                return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
+            if (!comments.isEmpty())
+                return new ResponseEntity<>(comments, HttpStatus.OK);
             else
-                return new ResponseEntity<List<Comment>>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<List<Comment>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -97,12 +97,12 @@ public class CommentController {
             @ApiResponse(code = 201, message = "Comment found"),
             @ApiResponse(code = 404, message = "Comment not found")
     })
-    public ResponseEntity<Comment> insertComment(@Valid @RequestBody Comment comment) {
+    public ResponseEntity<Comment> insertComment(@Valid @RequestBody CommentRequest commentRequest) {
         try {
-            Comment commentNew = commentService.save(comment);
+            Comment commentNew = commentService.save(CommentMapper.toComment(commentRequest));
             return ResponseEntity.status(HttpStatus.CREATED).body(commentNew);
         } catch (Exception e) {
-            return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -114,16 +114,17 @@ public class CommentController {
             @ApiResponse(code = 404, message = "Comment not updated")
     })
     public ResponseEntity<Comment> updateComment(
-            @PathVariable("id") Long id, @Valid @RequestBody Comment comment) {
+            @PathVariable("id") Long id, @Valid @RequestBody CommentRequest commentRequest) {
         try {
             Optional<Comment> commentUp = commentService.getById(id);
             if (!commentUp.isPresent())
-                return new ResponseEntity<Comment>(HttpStatus.NOT_FOUND);
-            comment.setId(id);
-            commentService.save(comment);
-            return new ResponseEntity<Comment>(comment, HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            Comment commentUpdate = CommentMapper.toComment(commentRequest);
+            commentUpdate.setId(id);
+            commentService.save(commentUpdate);
+            return new ResponseEntity<>(commentUpdate, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -137,11 +138,11 @@ public class CommentController {
         try {
             Optional<Comment> deleteComment = commentService.getById(id);
             if (!deleteComment.isPresent())
-                return new ResponseEntity<Comment>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             commentService.delete(id);
-            return new ResponseEntity<Comment>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Comment>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
