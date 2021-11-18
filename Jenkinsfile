@@ -23,6 +23,16 @@ pipeline {
                 }
             }
         }
+	    
+	    
+	stage ('SonarQube Analysis') {
+
+            steps {
+                withSonarQubeEnv('sonarQube') {
+                    bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=wheelmanager'
+                }
+            }
+        }
 
 
         stage ('Package Stage') {
