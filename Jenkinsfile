@@ -42,15 +42,20 @@ pipeline {
                 }
             }
         }
+	stage('Deploy to Tomcat') {
+            steps {
+                bat 'copy "target\\wheelManager-1.0.war" "D:\\apache-tomcat-9.0.54\\webapps"'
+            }
+        }
 
-		stage('Deploy Tomcat') {
+		/*stage('Deploy Tomcat') {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} direction ${env.WORKSPACE}"
                 withMaven(maven : 'MAVEN_3_6_3') {
 					bat '"C:\\Program Files\\Git\\mingw64\\bin\\curl.exe" -T ".\\target\\wheelManager-1.0.war" "http://deployer:deployer@localhost:9090/manager/text/deploy?path=/wheelManager-1.0&update=true"'
                 }
             }
-        }
+        }*/
 
     }
 }
