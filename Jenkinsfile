@@ -42,6 +42,16 @@ pipeline {
                 }
             }
         }
+	
+	stage('Delivery Stage') {
+            steps {
+                withMaven(maven : 'MAVEN_3_6_3') {
+                    bat 'mvn clean install'
+                }
+            }
+        }
+	    
+	    
 	stage('Deploy to Tomcat') {
             steps {
                 bat 'copy "target\\wheelManager-1.0.war" "D:\\apache-tomcat-9.0.54\\webapps"'
